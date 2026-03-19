@@ -1,0 +1,531 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: lightblue;
+    background-color: navy;
+    line-height: 1.6;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: navy;
+    padding: 20px;
+    position: relative;
+    z-index: 1000; /* Added z-index to nav for all devices */
+}
+
+h4 {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+h4 i {
+    color: gold;
+    font-size: 24px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    z-index: 1001; /* Added z-index to ensure menu items are above */
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: gold;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+nav ul li a:hover {
+    color: lightblue;
+}
+
+nav ul li a i {
+    font-size: 16px;
+}
+
+.home {
+    margin: 20px;
+    overflow: hidden;
+}
+
+.portfolio {
+    width: 300px;
+    max-width: 100%;
+    float: right;
+    margin: 10px 0 20px 20px;
+    border-radius: 5%;
+}
+
+h1 {
+    color: gold;
+    padding: 10px 0;
+    font-size: clamp(22px, 4vw, 32px);
+}
+
+p {
+    padding: 8px 0;
+    font-size: 18px;
+}
+
+button {
+    display: inline-block;
+    min-width: 150px;
+    padding: 12px 20px;
+    margin: 10px 10px 10px 0;
+    background-color: lightblue;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.aboutme {
+    margin: 20px;
+    overflow: hidden;
+}
+
+.about {
+    width: 300px;
+    max-width: 100%;
+    float: left;
+    margin: 10px 20px 20px 0;
+    border-radius: 5%;
+}
+
+/* ================= PROJECTS SECTION ================= */
+#projects {
+    padding: 40px 20px;
+}
+
+.myproject {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 30px;
+}
+
+.project-card {
+    background: #dbeafe;
+    color: #0a1f44;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: 0.4s ease;
+    text-align: center;
+}
+
+.project-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.project-card h3 {
+    margin: 20px 0 10px;
+}
+
+.project-card p {
+    padding: 0 20px 20px;
+}
+
+/* ================= CONTACT SECTION ================= */
+.contactme {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    padding: 20px;
+}
+
+.call1,
+.call2 {
+    flex: 1 1 350px;
+}
+
+.call1 a {
+    margin-right: 20px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.call1 a i {
+    margin-right: 5px;
+}
+
+.call2 {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border: 1px solid #eee;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.call2 input,
+.call2 textarea {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 12px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.call2 button {
+    width: auto;
+    min-width: 150px;
+}
+
+/* ================= FOOTER ================= */
+.last {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 30px 20px;
+    background-color: navy;
+    border-top: 1px solid gold;
+}
+
+.jj {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.jj a {
+    text-decoration: none;
+    color: gold;
+}
+
+.jj a:hover {
+    color: lightblue;
+}
+
+/* ================= HAMBURGER MENU ================= */
+.menu-toggle {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: gold;
+    z-index: 1000;
+}
+
+/* ================= RESPONSIVE DESIGN ================= */
+@media (max-width: 1024px) {
+    .contactme {
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        z-index: 1002; /* Higher z-index for hamburger */
+    }
+
+    nav {
+        padding: 20px;
+        min-height: 70px;
+        z-index: 1000;
+    }
+
+    h4 {
+        width: calc(100% - 50px);
+        font-size: 18px;
+    }
+
+    /* Hide menu by default */
+    #nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: navy;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        padding: 20px 0;
+        z-index: 1001; /* High z-index for mobile menu */
+        border-top: 1px solid gold;
+        border-bottom: 1px solid gold;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Added shadow for depth */
+    }
+
+    /* Show when active */
+    #nav-links.active {
+        display: flex;
+    }
+
+    #nav-links li {
+        text-align: center;
+        padding: 12px 0;
+    }
+
+    #nav-links li a {
+        justify-content: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    nav ul li a {
+        padding: 5px 0;
+    }
+
+    .portfolio,
+    .about {
+        float: none;
+        display: block;
+        margin: 20px auto;
+        text-align: center;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    button {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .home a {
+        display: inline-block;
+        width: 100%;
+    }
+    
+    .home button {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .contactme {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .call1 h6 {
+        margin-top: 20px !important;
+    }
+
+    .call2 {
+        padding: 20px;
+    }
+
+    .call2 button {
+        width: 100%;
+    }
+
+    .last {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .jj {
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .jj a h4 {
+        margin: 0;
+        padding: 8px;
+    }
+
+    .myproject {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    /* Improve touch targets on mobile */
+    nav ul li a,
+    .jj a,
+    .call1 a,
+    button {
+        padding: 12px 15px;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+
+    h4 {
+        font-size: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-right: 40px;
+    }
+
+    h4 i {
+        font-size: 20px;
+    }
+
+    .menu-toggle {
+        font-size: 24px;
+        top: 18px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    .home, .aboutme, .contactme {
+        margin: 10px;
+        padding: 10px;
+    }
+
+    /* Fix images on very small screens */
+    .portfolio, .about {
+        max-width: 250px;
+        width: 100%;
+        height: auto;
+        margin: 10px auto;
+    }
+
+    /* Fix form on very small screens */
+    .call2 {
+        padding: 15px;
+    }
+
+    .call2 input,
+    .call2 textarea {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    /* Ensure buttons don't overflow */
+    button {
+        min-width: 120px;
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+
+    .project-card {
+        margin: 0 10px;
+    }
+
+    .call1 a {
+        display: block;
+        margin: 10px 0;
+    }
+}
+
+/* Fix for iPhone SE and similar tiny screens */
+@media (max-width: 375px) {
+    h4 {
+        font-size: 14px;
+    }
+
+    h4 i {
+        font-size: 18px;
+    }
+
+    .menu-toggle {
+        font-size: 22px;
+        top: 16px;
+    }
+
+    .home h1 {
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    .project-card h3 {
+        font-size: 18px;
+    }
+
+    .project-card p {
+        font-size: 14px;
+        padding: 0 15px 15px;
+    }
+}
+
+/* Fix for landscape mode on mobile */
+@media (max-width: 900px) and (orientation: landscape) {
+    .home img, .aboutme img {
+        float: none;
+        display: block;
+        margin: 10px auto;
+        max-width: 200px;
+    }
+
+    .home, .aboutme {
+        text-align: center;
+    }
+
+    #nav-links {
+        max-height: 80vh;
+        overflow-y: auto; /* Allow scrolling if menu is too long */
+    }
+}
+
+/* Fix for very large screens */
+@media (min-width: 1400px) {
+    .contactme {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    
+    .myproject {
+        max-width: 1400px;
+        margin: 30px auto;
+    }
+}
+
+/* Additional z-index fixes for desktop */
+@media (min-width: 769px) {
+    nav {
+        z-index: 1000;
+    }
+    
+    nav ul {
+        z-index: 1001;
+        position: relative;
+    }
+    
+    /* Ensure dropdowns or modals would appear above */
+    .project-card {
+        position: relative;
+        z-index: 1;
+    }
+    
+    .project-card:hover {
+        z-index: 2;
+    }
+}

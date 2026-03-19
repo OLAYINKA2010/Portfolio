@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Momentum Calculator</title>
+
+<style>
+
+/* Reset */
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Background */
+body{
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+/* Glass Card */
+form{
+    width: 90%;
+    max-width: 500px;
+
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.15);
+
+    border-radius: 20px;
+    padding: 30px;
+
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.2);
+
+    color: white;
+    transition: 0.3s;
+}
+
+/* Headings */
+h1{
+    text-align: center;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+h2{
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    opacity: 0.85;
+}
+
+/* Labels */
+.label{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+label{
+    flex: 1;
+    font-size: 0.9rem;
+}
+
+/* Inputs */
+.input{
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+input{
+    flex: 1;
+    padding: 10px;
+
+    border-radius: 10px;
+    border: none;
+    outline: none;
+
+    background: rgba(255,255,255,0.2);
+    color: white;
+    font-size: 1rem;
+}
+button{
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    font-size: 1rem;
+    margin: 10px;
+}
+
+
+input::placeholder{
+    color: rgba(255,255,255,0.7);
+}
+
+/* Result */
+#result{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+/* 📱 Mobile */
+@media (max-width: 600px){
+    .input{
+        flex-direction: column;
+    }
+
+    .label{
+        flex-direction: column;
+    }
+}
+
+/* 💻 Tablet & Laptop */
+@media (min-width: 768px){
+
+    form{
+        max-width: 700px;
+        padding: 40px;
+    }
+
+    h1{
+        font-size: 2rem;
+    }
+
+    h2{
+        font-size: 1.2rem;
+    }
+
+    .input{
+        gap: 20px;
+    }
+
+    input{
+        font-size: 1.1rem;
+        padding: 12px;
+    }
+
+    #result{
+        font-size: 1.5rem;
+    }
+}
+
+/* 🖥️ Large Screens */
+@media (min-width: 1024px){
+
+    body{
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+    }
+
+    form{
+        max-width: 800px;
+        border-radius: 25px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<form>
+    <h1>Momentum Calculator</h1>
+    <h2>Δp = m (v − u)</h2>
+
+    <div class="label">
+        <label for="mass">Mass (kg)</label>
+        <label for="final">Final Velocity</label>
+        <label for="initial">Initial Velocity</label>
+    </div>
+
+    <div class="input">
+        <input type="number" id="mass" placeholder="Mass">
+        <input type="number" id="final" placeholder="Final v">
+        <input type="number" id="initial" placeholder="Initial u">
+    </div>
+    <button type="button" onclick="calculate()">Calculate</button>
+    <h3 id="result"></h3>
+</form>
+
+<script>
+
+const massInput = document.getElementById("mass");
+const finalInput = document.getElementById("final");
+const initialInput = document.getElementById("initial");
+const result = document.getElementById("result");
+
+function calculate(){
+
+    let m = Number(massInput.value);
+    let v = Number(finalInput.value);
+    let u = Number(initialInput.value);
+
+    if (!massInput.value || !finalInput.value || !initialInput.value){
+        result.textContent = "Enter all values...";
+        return;
+    }
+
+    if (isNaN(m) || isNaN(v) || isNaN(u)){
+        result.textContent = "Invalid input!";
+        return;
+    }
+
+    let change = m * v - m * u;
+
+    result.textContent = `Δp = ${change} kg·m/s`;
+}
+
+</script>
+
+</body>
+</html>

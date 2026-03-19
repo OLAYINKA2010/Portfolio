@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temperature Converter</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+<style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+/* Glass UI */
+form{
+    backdrop-filter: blur(15px);
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 30px;
+    width: 90%;
+    max-width: 350px;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+input[type="number"]{
+    width: 100%;
+    padding: 10px;
+    font-size: 1.5em;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+    margin: 20px 0;
+}
+
+label{
+    display: block;
+    margin: 10px 0;
+    font-size: 1.1em;
+}
+
+input[type="radio"]{
+    margin-right: 10px;
+}
+
+#result{
+    margin-top: 20px;
+    font-size: 1.5em;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Responsive tweaks */
+@media (max-width: 400px){
+    form{
+        padding: 20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<form>
+    <h1>Temperature</h1>
+    <h1>Conversion</h1>
+
+    <input type="number" value="0" id="input">
+
+    <label>
+        <input type="radio" id="celcius" name="radio">
+        Celsius <i class="fa-solid fa-arrow-right"></i> Fahrenheit
+    </label>
+
+    <label>
+        <input type="radio" id="fahrenheit" name="radio">
+        Fahrenheit <i class="fa-solid fa-arrow-right"></i> Celsius
+    </label>
+
+    <h3 id="result"></h3>
+</form>
+
+<script>
+let input = document.getElementById("input");
+let celcius = document.getElementById("celcius");
+let fahrenheit = document.getElementById("fahrenheit");
+let result = document.getElementById("result");
+
+/* Live conversion */
+function convert(){
+    let temp = Number(input.value);
+
+    if(celcius.checked){
+        let output = temp * 9 / 5 + 32;
+        result.textContent = output.toFixed(1) + " °F";
+    }
+    else if(fahrenheit.checked){
+        let output = (temp - 32) * 5 / 9;
+        result.textContent = output.toFixed(1) + " °C";
+    }
+    else{
+        result.textContent = "Select a unit";
+    }
+}
+
+/* Event listeners for live update */
+input.addEventListener("input", convert);
+celcius.addEventListener("change", convert);
+fahrenheit.addEventListener("change", convert);
+</script>
+
+</body>
+</html>
