@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Calculator</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    background:#f5f5f5;
+    padding:10px;
+}
+
+body.dark{background:#111;}
+
+#calculator{
+    width:100%;
+    max-width:420px;
+    background:#222;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+#display{
+    width:100%;
+    padding:20px;
+    font-size:clamp(1.5rem,6vw,2.5rem);
+    border:none;
+    background:#333;
+    color:white;
+    text-align:right;
+    outline:none;
+}
+
+#keys{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:5px;
+    padding:10px;
+}
+
+button{
+    border:none;
+    border-radius:8px;
+    padding:15px 5px;
+    font-size:clamp(0.8rem,3vw,1.2rem);
+    background:#444;
+    color:white;
+    cursor:pointer;
+    transition:0.2s;
+    min-width:0;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+button:hover{opacity:0.9;}
+button:active{transform:scale(0.95);}
+
+.operator-btn{background:orange;}
+
+#history{
+    max-height:100px;
+    overflow-y:auto;
+    background:#111;
+    color:#ccc;
+    padding:8px;
+    font-size:0.8rem;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+
+#history div{
+    cursor:pointer;
+    padding:2px 5px;
+    border-radius:3px;
+}
+
+#history div:hover{
+    background:#333;
+}
+
+.top-bar{
+    display:flex;
+    justify-content:space-between;
+    padding:8px;
+}
+
+.top-bar button{
+    padding:8px 12px;
+    font-size:1rem;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 380px) {
+    #keys{
+        gap:3px;
+        padding:8px;
+    }
+    
+    button{
+        padding:12px 2px;
+        font-size:0.75rem;
+    }
+    
+    .top-bar button{
+        padding:6px 10px;
+        font-size:0.9rem;
+    }
+    
+    #display{
+        padding:15px;
+    }
+}
+
+@media (max-width: 320px) {
+    #keys{
+        gap:2px;
+        padding:5px;
+    }
+    
+    button{
+        padding:10px 1px;
+        font-size:0.7rem;
+        border-radius:5px;
+    }
+    
+    .top-bar{
+        padding:5px;
+    }
+    
+    .top-bar button{
+        padding:5px 8px;
+        font-size:0.8rem;
+    }
+    
+    #history{
+        max-height:80px;
+        font-size:0.7rem;
+    }
+}
+
+/* For very small screens, reduce to 4 columns temporarily */
+@media (max-width: 260px) {
+    #keys{
+        grid-template-columns:repeat(4,1fr);
+    }
+    
+    #keys button:nth-child(5),
+    #keys button:nth-child(10),
+    #keys button:nth-child(15),
+    #keys button:nth-child(20),
+    #keys button:nth-child(25) {
+        display:none;
+    }
+}
+
+/* Landscape orientation on mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    body{
+        min-height:auto;
+        padding:5px;
+    }
+    
+    #calculator{
+        max-width:600px;
+    }
+    
+    #keys{
+        gap:4px;
+    }
+    
+    button{
+        padding:10px 3px;
+    }
+    
+    #history{
+        max-height:60px;
+    }
+}
+
+/* Tablet optimization */
+@media (min-width: 600px) and (max-width: 1024px) {
+    #calculator{
+        max-width:500px;
+    }
+    
+    button{
+        padding:18px 5px;
+        font-size:1.2rem;
+    }
+    
+    #display{
+        padding:25px;
+        font-size:2.5rem;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="calculator">
+
+<div class="top-bar">
+    <button onclick="toggleMode()">🌙</button>
+    <button onclick="clearHistory()">Clear</button>
+</div>
+
+<input id="display" readonly>
+
+<div id="history"></div>
+
+<div id="keys">
+
+<button onclick="appendFunc('Math.sin(')">sin</button>
+<button onclick="appendFunc('Math.cos(')">cos</button>
+<button onclick="appendFunc('Math.tan(')">tan</button>
+<button onclick="appendFunc('Math.sqrt(')">√</button>
+<button onclick="appendFunc('Math.log10(')">log</button>
+
+<button onclick="appendToDisplay('7')">7</button>
+<button onclick="appendToDisplay('8')">8</button>
+<button onclick="appendToDisplay('9')">9</button>
+<button onclick="appendToDisplay('/')" class="operator-btn">÷</button>
+<button onclick="clearDisplay()" class="operator-btn">C</button>
+
+<button onclick="appendToDisplay('4')">4</button>
+<button onclick="appendToDisplay('5')">5</button>
+<button onclick="appendToDisplay('6')">6</button>
+<button onclick="appendToDisplay('*')" class="operator-btn">×</button>
+<button onclick="deleteLast()">⌫</button>
+
+<button onclick="appendToDisplay('1')">1</button>
+<button onclick="appendToDisplay('2')">2</button>
+<button onclick="appendToDisplay('3')">3</button>
+<button onclick="appendToDisplay('-')" class="operator-btn">−</button>
+<button onclick="appendToDisplay('Math.PI')">π</button>
+
+<button onclick="appendToDisplay('0')">0</button>
+<button onclick="appendToDisplay('.')">.</button>
+<button onclick="calculate()" class="operator-btn">=</button>
+<button onclick="appendToDisplay('+')" class="operator-btn">+</button>
+<button onclick="appendToDisplay('(')">(</button>
+<button onclick="appendToDisplay(')')">)</button>
+
+</div>
+</div>
+
+<script>
+const display = document.getElementById("display");
+const historyDiv = document.getElementById("history");
+
+let history = JSON.parse(localStorage.getItem("calcHistory")) || [];
+
+/* SHOW HISTORY */
+function renderHistory(){
+    historyDiv.innerHTML="";
+    history.slice().reverse().forEach(item=>{
+        const div=document.createElement("div");
+        div.textContent=item;
+        div.onclick=()=> display.value=item.split("=")[1].trim();
+        historyDiv.appendChild(div);
+    });
+}
+renderHistory();
+
+/* INPUT */
+function appendToDisplay(input){
+    display.value+=input;
+}
+
+/* SCIENTIFIC */
+function appendFunc(func){
+    display.value+=func;
+}
+
+/* DELETE */
+function deleteLast(){
+    display.value=display.value.slice(0,-1);
+}
+
+/* CLEAR */
+function clearDisplay(){
+    display.value="";
+}
+
+/* AUTO BRACKET FIX FUNCTION */
+function fixBrackets(expression){
+    let open = 0;
+
+    for(let char of expression){
+        if(char === "(") open++;
+        else if(char === ")") open--;
+    }
+
+    // Remove extra closing brackets
+    while(open < 0){
+        expression = expression.replace(/\)/, "");
+        open++;
+    }
+
+    // Add missing closing brackets
+    while(open > 0){
+        expression += ")";
+        open--;
+    }
+
+    return expression;
+}
+
+/* CALCULATE */
+function calculate(){
+    try{
+        let expression = display.value;
+
+        // Replace ÷ and × with / and *
+        expression = expression.replace(/÷/g, '/').replace(/×/g, '*').replace(/−/g, '-');
+
+        // FIX BRACKETS AUTOMATICALLY
+        expression = fixBrackets(expression);
+
+        let result = Function("return " + expression)();
+
+        if(!isFinite(result)){
+            display.value="Error";
+            return;
+        }
+
+        result = Number.isInteger(result)
+            ? result
+            : parseFloat(result.toFixed(8));
+
+        const record = expression + " = " + result;
+
+        history.push(record);
+        // Keep only last 20 items
+        if(history.length > 20) history = history.slice(-20);
+        localStorage.setItem("calcHistory", JSON.stringify(history));
+
+        renderHistory();
+
+        display.value = result;
+
+    } catch(error){
+        display.value="Error";
+    }
+}
+
+/* DARK MODE */
+function toggleMode(){
+    document.body.classList.toggle("dark");
+    const btn = document.querySelector('.top-bar button:first-child');
+    btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+}
+
+/* CLEAR HISTORY */
+function clearHistory(){
+    history=[];
+    localStorage.removeItem("calcHistory");
+    renderHistory();
+}
+
+/* KEYBOARD */
+document.addEventListener("keydown",(e)=>{
+    if(!isNaN(e.key) || "+-*/().".includes(e.key)){
+        appendToDisplay(e.key);
+    }
+    else if(e.key==="Enter") calculate();
+    else if(e.key==="Backspace") deleteLast();
+    else if(e.key==="Escape") clearDisplay();
+});
+
+// Prevent form submission if any
+document.addEventListener('submit', (e) => e.preventDefault());
+
+// Touch optimization
+let touchTimer;
+document.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('touchstart', (e) => {
+        touchTimer = setTimeout(() => {
+            // Long press not needed, just prevent double tap zoom
+        }, 500);
+    });
+    btn.addEventListener('touchend', () => {
+        clearTimeout(touchTimer);
+    });
+});
+</script>
+
+</body>
+</html>
